@@ -88,214 +88,84 @@ paths:
                   description: نمونه خروجی سرویس
                   value: |-
                     [
-                        [
-                            {
-                                "symbol": "some text",
-                                "letterSymbol": "some text",
-                                "tracingNumber": "some text",
-                                "parentTracingNo": 70,
-                                "title": "some text",
-                                "sentDateTime": "2018-01-17",
-                                "publishDateTime": "2018-01-17",
-                                "reportingType": 3,
-                                "letterName": "some text",
-                                "letterType": 60,
-                                "letterKind": 92,
-                                "isAudited": true,
-                                "isConsolidated": true,
-                                "period": 73,
-                                "periodExtraDay": 82,
-                                "periodEndToDate": "2018-01-17",
-                                "yearEndToDate": "some text",
-                                "hasAttachment": true,
-                                "companyType": 69,
-                                "companyName": "some text",
-                                "companyState": 77,
-                                "htmlUrl": "some text",
-                                "pdfUrl": "some text"
-                            },
-                            {
-                                "symbol": "some text",
-                                "letterSymbol": "some text",
-                                "tracingNumber": "some text",
-                                "parentTracingNo": 6,
-                                "title": "some text",
-                                "sentDateTime": "2018-01-17",
-                                "publishDateTime": "2018-01-17",
-                                "reportingType": 43,
-                                "letterName": "some text",
-                                "letterType": 42,
-                                "letterKind": 17,
-                                "isAudited": true,
-                                "isConsolidated": true,
-                                "period": 27,
-                                "periodExtraDay": 19,
-                                "periodEndToDate": "2018-01-17",
-                                "yearEndToDate": "some text",
-                                "hasAttachment": true,
-                                "companyType": 54,
-                                "companyName": "some text",
-                                "companyState": 85,
-                                "htmlUrl": "some text",
-                                "pdfUrl": "some text"
-                            }
-                        ],
-                        [
-                            {
-                                "symbol": "some text",
-                                "letterSymbol": "some text",
-                                "tracingNumber": "some text",
-                                "parentTracingNo": 12,
-                                "title": "some text",
-                                "sentDateTime": "2018-01-17",
-                                "publishDateTime": "2018-01-17",
-                                "reportingType": 62,
-                                "letterName": "some text",
-                                "letterType": 3,
-                                "letterKind": 90,
-                                "isAudited": true,
-                                "isConsolidated": true,
-                                "period": 7,
-                                "periodExtraDay": 92,
-                                "periodEndToDate": "2018-01-17",
-                                "yearEndToDate": "some text",
-                                "hasAttachment": true,
-                                "companyType": 26,
-                                "companyName": "some text",
-                                "companyState": 63,
-                                "htmlUrl": "some text",
-                                "pdfUrl": "some text"
-                            },
-                            {
-                                "symbol": "some text",
-                                "letterSymbol": "some text",
-                                "tracingNumber": "some text",
-                                "parentTracingNo": 68,
-                                "title": "some text",
-                                "sentDateTime": "2018-01-17",
-                                "publishDateTime": "2018-01-17",
-                                "reportingType": 12,
-                                "letterName": "some text",
-                                "letterType": 57,
-                                "letterKind": 20,
-                                "isAudited": true,
-                                "isConsolidated": true,
-                                "period": 46,
-                                "periodExtraDay": 84,
-                                "periodEndToDate": "2018-01-17",
-                                "yearEndToDate": "some text",
-                                "hasAttachment": true,
-                                "companyType": 41,
-                                "companyName": "some text",
-                                "companyState": 48,
-                                "htmlUrl": "some text",
-                                "pdfUrl": "some text"
-                            }
-                        ]
+                        {
+                            "symbol": "some text",
+                            "letterSymbol": "some text",
+                            "tracingNo": "some text",
+                            "parentTracingNo": 29,
+                            "title": "some text",
+                            "sentDateTime": "some text",
+                            "publishDateTime": "some text",
+                            "reportingType": {}
+                        },
+                        {
+                            "symbol": "some text",
+                            "letterSymbol": "some text",
+                            "tracingNo": "some text",
+                            "parentTracingNo": 97,
+                            "title": "some text",
+                            "sentDateTime": "some text",
+                            "publishDateTime": "some text",
+                            "reportingType": {}
+                        }
+                    ]
+  /adviserSupply:
+    description: ""
+    get:
+      tags:
+      - اطلاعات‌پایه
+      summary: مشاوران عرضه
+      description: |
+        این متد لیست مشاوران عرضه را برمی گرداند
+      operationId: GetAdviserSuppliers
+      responses:
+        200:
+          description: 'خروجی وب سرویس '
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Advisor'
+              examples:
+                results:
+                  summary: نمونه خروجی سرویس
+                  description: نمونه خروجی سرویس
+                  value: |-
+                    [
+                        {
+                            "adviserId": 56,
+                            "name": "کارگزاری آبان",
+                            "registerNo": "۱۰۶۴۵",
+                            "registerDate": "۱۳۷۵/۰۶/۰۸",
+                            "registerPlace": "---",
+                            "registerDateSeo": "۱۳۸۷/۱۰/۰۴",
+                            "licenseNumber": "۱۲۴۰۷۴",
+                            "licenseDate": "",
+                            "expirationDate": "",
+                            "address": "خیابان ولیعصر بالاتر از شهید بهشتی پلاک ۲۱۱۳",
+                            "phoneNo": "۸۸۵۵۳۰۳۰"
+                        },
+                        {
+                            "adviserId": 64,
+                            "name": "کارگزاری توسعه سهند",
+                            "registerNo": "۱۰۶۸۷",
+                            "registerDate": "۱۳۸۷/۱۲/۲۶",
+                            "registerPlace": "-",
+                            "registerDateSeo": "۱۳۸۷/۱۲/۲۶",
+                            "licenseNumber": "۱۰۲۰۰۲۳۸۰۴۹",
+                            "licenseDate": "۱۳۸۴/۰۶/۲۰",
+                            "expirationDate": "-",
+                            "address": "تهران، سعادت آباد، میدان قیصر امین پور (شهرداری) ، بلوارشهرداری شمالی، نبش قصرالدشتی، پلاک",
+                            "phoneNo": "۷۴۶۱۹"
+                        }
                     ]
 components:
   schemas:
-    CreatePaymentRequest:
-      required:
-      - MerchantId
-      - Amount
-      - PayType
-      - Description
-      - ResNumber
-      - CallbackUrl
-      type: object
-      properties:
-        MerchantId:
-          description: شناسه پذیرنده
-          type: string
-        Amount:
-          format: int64
-          description: مبلغ (ریال)
-          type: integer
-        PayType:
-          format: int32
-          description: نوع پرداخت 0=به انتخاب خریدار 2=اعتباری 4=شتابی
-          type: integer
-        Description:
-          description: توضیحات پرداخت که در صفحه پیش‌نمایش پرداخت نمایش داده می شود
-          type: string
-        ResNumber:
-          description: شماره سفارش (نباید تکراری باشد)
-          type: string
-        CallbackUrl:
-          description: آدرس صفحه بازگشت خریدار، پس از انجام عمل پرداخت، باید به صورت
-            Base64 ارسال شود
-          type: string
-        Email:
-          description: ایمیل خریدار، باید به صورت Base64 ارسال شود
-          type: string
-        Mobile:
-          description: شماره تماس خریدار
-          type: string
     StatementsResult:
       title: Root Type for StatementsResult
       description: The root of the StatementsResult type's schema.
-      type: array
-      items:
-        type: object
-        properties:
-          symbol:
-            type: string
-          letterSymbol:
-            type: string
-          tracingNumber:
-            type: string
-          parentTracingNo:
-            format: int32
-            type: integer
-          title:
-            type: string
-          sentDateTime:
-            format: date
-            type: string
-          publishDateTime:
-            format: date
-            type: string
-          reportingType:
-            format: int32
-            type: integer
-          letterName:
-            type: string
-          letterType:
-            format: int32
-            type: integer
-          letterKind:
-            format: int32
-            type: integer
-          isAudited:
-            type: boolean
-          isConsolidated:
-            type: boolean
-          period:
-            format: int32
-            type: integer
-          periodExtraDay:
-            format: int32
-            type: integer
-          periodEndToDate:
-            format: date
-            type: string
-          yearEndToDate:
-            type: string
-          hasAttachment:
-            type: boolean
-          companyType:
-            format: int32
-            type: integer
-          companyName:
-            type: string
-          companyState:
-            format: int32
-            type: integer
-          htmlUrl:
-            type: string
-          pdfUrl:
-            type: string
+      type: object
       properties:
         symbol:
           description: نماد
@@ -320,40 +190,63 @@ components:
           description: تاریخ انتشار
           type: string
         reportingType:
-          description: حاوی عددی است که نشان دهنده دسته بندی کلی شرکت در یکی از دسته
-            های تولیدی، سرمایه گذاری، خدماتی، لیزینگ، بانک و ساختمانی است. فیلدهای
-            موجود در برخی از اقلام اطلاعاتی همانند صورت سود و زیان بسته به نوع دسته
-            بندی شرکت عنوان و مفهوم خاصی پیدا می کنند
+          description: |-
+            حاوی عددی است که نشان دهنده دسته بندی کلی شرکت می باشد. فیلدهای موجود در برخی از اقلام اطلاعاتی همانند صورت سود و زیان بسته به نوع دسته بندی شرکت عنوان و مفهوم خاصی پیدا می کنند
+            1000000=تولیدی |
+            1000001=ساختمانی|
+            1000002=سرمایه گذاری|
+            1000003=بانکی|
+            1000004=لیزینگی|
+            1000005=خدماتی|
+            1000006=بیمه ای|
+            1000007=حمل و نقل دریایی|
           enum:
           - "1000000"
-      example: |-
-        [
-            {
-                "symbol": "rbc",
-                "letterSymbol": "letterSym",
-                "tracingNumber": "00112233",
-                "parentTracingNo": 123456,
-                "title": "New Statement",
-                "sentDateTime": "1399/09/09",
-                "publishDateTime": "1399/09/09",
-                "reportingType": 1000000,
-                "letterName": "NAME",
-                "letterType": 1,
-                "letterKind": 2,
-                "isAudited": false,
-                "isConsolidated": false,
-                "period": 1,
-                "periodExtraDay": 20,
-                "periodEndToDate": "1399/09/09",
-                "yearEndToDate": "1399",
-                "hasAttachment": false,
-                "companyType": 1,
-                "companyName": "CoName",
-                "companyState": 1,
-                "htmlUrl": "http://url",
-                "pdfUrl": "http://url"
-            }
-        ]
+          - "1000001"
+          - "1000002"
+          - "1000005"
+          - "1000006"
+          - "1000007"
+        letterName:
+          description: عنوان نوع اطلاعیه
+          type: string
+    Advisor:
+      description: کارگزاری
+      type: object
+      properties:
+        adviserId:
+          description: شناسه کارگزاری
+          type: integer
+        name:
+          description: نام
+          type: string
+        registerNo:
+          description: شماره ثبت
+          type: string
+        registerDate:
+          description: تاریخ ثبت
+          type: string
+        registerPlace:
+          description: مکان ثبت
+          type: string
+        registerDateSeo:
+          description: تاریخ ثبت در سازمان
+          type: string
+        licenseNumber:
+          description: شماره مجوز
+          type: string
+        licenseDate:
+          description: 'تاریخ مجوز '
+          type: string
+        expirationDate:
+          description: تاریخ اعتبار
+          type: string
+        address:
+          description: آدرس
+          type: string
+        phoneNo:
+          description: شماره تلفن
+          type: string
   securitySchemes:
     JwtToken:
       type: apiKey
