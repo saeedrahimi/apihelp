@@ -409,126 +409,6 @@ components:
         Mobile:
           description: شماره تماس خریدار
           type: string
-    GatewayResult:
-      type: object
-      properties:
-        ResultCode:
-          format: int32
-          type: integer
-          readOnly: true
-        InvoiceNumber:
-          type: string
-    PaymentWithAmountRequest:
-      required:
-      - Amount
-      - MerchantId
-      - InvoiceNumber
-      type: object
-      properties:
-        Amount:
-          format: int64
-          description: مبلغ (ریال)
-          type: integer
-        MerchantId:
-          description: شناسه پذیرنده
-          type: string
-        InvoiceNumber:
-          format: double
-          description: شناسه اختصاصی خرید
-          type: number
-    GatewayVerifyResult:
-      type: object
-      properties:
-        RefNo:
-          type: string
-        ResultCode:
-          format: int32
-          type: integer
-          readOnly: true
-        InvoiceNumber:
-          type: string
-    PaymentRequestBase:
-      required:
-      - MerchantId
-      - InvoiceNumber
-      type: object
-      properties:
-        MerchantId:
-          description: شناسه پذیرنده
-          type: string
-        InvoiceNumber:
-          format: double
-          description: شناسه اختصاصی خرید
-          type: number
-    PaymentReportRequest:
-      required:
-      - MerchantId
-      - FromDate
-      - ToDate
-      - Type
-      type: object
-      properties:
-        MerchantId:
-          description: شناسه پذیرنده
-          type: string
-        Filter:
-          description: اعمال فیلتر بر روی کد سفارش، کد پیگیری پرداخت، توضیحات سفارش
-          type: array
-          items:
-            type: string
-        FromDate:
-          format: date-time
-          description: تاریخ شروع گزارش
-          type: string
-        ToDate:
-          format: date-time
-          description: تاریخ پایان گزارش
-          type: string
-        Type:
-          format: int32
-          description: نوع پرداخت 0=همه 2=اعتباری 4=شتابی
-          type: integer
-        Skip:
-          format: int32
-          description: نقطه شروع گزارش
-          type: integer
-        Limit:
-          format: int32
-          description: تعداد گزارش
-          type: integer
-    Log_TransactionReportViewModel:
-      type: object
-      properties:
-        InvoiceNumber:
-          format: double
-          type: number
-        ResNumber:
-          type: string
-        Amount:
-          format: int64
-          type: integer
-        PayType:
-          format: int32
-          type: integer
-        Status:
-          format: int32
-          type: integer
-        ReqDate:
-          format: date-time
-          type: string
-        LastStatusDate:
-          format: date-time
-          type: string
-        Email:
-          type: string
-        Mobile:
-          type: string
-        Description:
-          type: string
-        Pan:
-          type: string
-        RefNo:
-          type: string
     StatementsResult:
       title: Root Type for StatementsResult
       description: The root of the StatementsResult type's schema.
@@ -594,9 +474,35 @@ components:
           pdfUrl:
             type: string
       properties:
-        test:
-          description: test
+        symbol:
+          description: نماد
           type: string
+        letterSymbol:
+          description: در صورتیکه شرکت از نوع زیر مجموعه باشد و یا تغییر کرده باشد
+            این فیلد نشان دهنده نماد شرکت می باشد
+          type: string
+        tracingNo:
+          description: شماره پیگیری
+          type: string
+        parentTracingNo:
+          description: شماره پیگیری اصلاحیه
+          type: integer
+        title:
+          description: عنوان اطلاعیه
+          type: string
+        sentDateTime:
+          description: تاریخ ارسال
+          type: string
+        publishDateTime:
+          description: تاریخ انتشار
+          type: string
+        reportingType:
+          description: حاوی عددی است که نشان دهنده دسته بندی کلی شرکت در یکی از دسته
+            های تولیدی، سرمایه گذاری، خدماتی، لیزینگ، بانک و ساختمانی است. فیلدهای
+            موجود در برخی از اقلام اطلاعاتی همانند صورت سود و زیان بسته به نوع دسته
+            بندی شرکت عنوان و مفهوم خاصی پیدا می کنند
+          enum:
+          - "1000000"
       example: |-
         [
             {
