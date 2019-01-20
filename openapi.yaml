@@ -1,0 +1,639 @@
+---
+openapi: 3.0.0
+info:
+  title: راهنمای استفاده از درگاه خدمات ارزش افزوده
+  description: "راهنمای استفاده از درگاه خدمات ارزش افزوده\n\nلینک‌های پشتیبانی: \
+    \ | پورتال: [crm.rayanbourse.ir]() | ایمیل: [api@rayanbourse.ir]() | تلفن: 02141721000\n\
+    # مقدمه\nشرکت رایان بورس در راستای توسعه خدمات نوین و ارایه داده‌های سامانه‌ها\
+    ی تحت پوشش خود در قالبی استاندارد، نوین و ساخت‌یافته، اقدام به تولید و استقرار\
+    \ نسل جدیدی از وب سرویس‌های خود نموده است. با توجه به توسعه روز افزون سامانه ک\
+    دال به عنوان مرکز انتشار داده‌های مالی و اطلاعیه‌های حاضر اهمیت ناشران در بازا\
+    ر سرمایه و درخواست‌های استفاده کنندگان از اطلاعات این سامانه، شرکت رایان بورس\
+    \ بر آن شد تا کلیه اطلاعات مزبور را به صورت مکانیزه، کاملا منطبق با اطلاعیه‌ها\
+    ی منتشر شده در کدال عمومی در اختیار پردازشگران داده‌های مالی قرار دهد و به عنو\
+    ان اولین گام اول این فرآیند بازنویسی و جایگزین کردن وب سرویس‌های قبلی سامانه «\
+    کدال» را به انجام رساند. اینک این مجموعه با راهنمای فنی حاضر در اختیار مشترکان\
+    \ قرار گرفته است. برای استفاده از این راهنما نیازی به احراز هویت و تایید درخوا\
+    ست‌کنندگان نیست، ولی سرویس‌ها، همچون گذشته، بنا به درخواست از امور مشتریان شرک\
+    ت و گذراندن مراحل تایید و ایجاد حساب کاربری ممکن می‌باشد.\n\nتمامی وب‌ سرویس‌ه\
+    ای توضیح داده شده در این مستندات به صورت [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)\
+    \ پیاده سازی شده‌اند و طبق همین چهارچوب باید با آنها ارتباط برقرار کرد.\n\n# POSTMAN\n\
+    بمنظور بهبود عملیات تست و توسعه شما فایل قالب postman سرویس ها آماده شده است ک\
+    ه می توانید از لینک زیر آن را دانلود کنید و با استفاده از نرم‌افزار  [postman](https://www.getpostman.com/apps)\
+    \ از آن استفاده کنید\n\n [دانلود قالب postman](https://help.rbcapi.ir/postman.zip)\n\
+    \n # جدول راهنمای کد خطا \n\n بعد از ارسال هر درخواست به سمت سرور، از سمت ما ط\
+    بق قواعد وب‌سرویس‌های REST یک کدی به شما بازگرداننده می‌شود.\n هر کد معنایی دا\
+    رد که در جدول زیر توضیحات مربوطه را می‌بینید\n\n |StatusCode|ErrorCode|Message|Condition\n\
+    \ |-------|--------|--------|--------|\n |`401`|`100`|شما دسترسی لازم برای این\
+    \ سرویس را ندارید|  Authorization header در صورت عدم ارایه |\n |`401`|`127`|تو\
+    کن نامعتبر است| در صورت وارد کردن توکن با فرمت نادرست |\n |`404`|`104`|پروژه و\
+    ارد شده وجود ندارد| در صورت فرستادن نام پروژه به صورت اشتباه در آدرس درخواست |\n\
+    \ |`401`|`100`|شما دسترسی لازم برای این سرویس را ندارید| در صورت فرستادن توکن\
+    \ نادرست برای سرویس درخواستی |\n |`401`|`108`|توکن منقضی شده است| در صورت ارسا\
+    ل توکن منقضی شده|\n |`404`|`104`|سرویس وارد شده وجود ندارد| در صورت نفرستادن و\
+    \ یا فرستادن نام سرویس به صورت اشتباه در آدرس درخواست |\n |`403`|`303`|تعداد د\
+    رخواستها بیشتر از حد مجاز است| در صورت فرستادن درخواست ها بیش از حد مجاز در رو\
+    ز جاری  |"
+  contact:
+    name: Rayan Bourse Co.
+    url: http://www.rayanbourse.ir
+    email: info@rayanbourse.ir
+  version: v1
+  x-logo:
+    url: images/rb.png
+servers:
+- url: https://api.rbcapi.ir
+paths:
+  /api/v1/ipg/VerifyPayment:
+    post:
+      tags:
+      - اطلاعات‌پایه
+      summary: تائید پرداخت - VerifyPayment
+      description: "این متد جهت تسویه و تایید تراکنش پرداخت می باشد، شما می‌توانید\
+        \ در صفحه‌ای که بعنوان CallbaclUrl \r\nمعرفی کرده‌اید پس بررسی موجودی و تط\
+        بیق خرید این سرویس را فرواخوانی نمایید تا پرذاخت تسویه و تائید نهایی گردد."
+      operationId: MehrIpg_VerifyPayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayVerifyResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GatewayVerifyResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GatewayVerifyResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/GatewayVerifyResult'
+  /api/v1/ipg/ExpirePayment:
+    post:
+      tags:
+      - اطلاعات و صورت مالی سالانه
+      summary: لغو کد پرداخت - ExpirePayment
+      description: توسط این سرویس می‌توانید یک کد پرداخت را قبل از اینکه پرداختی روی
+        آن انجام گرفته باشد منقضی یا لغو نمایید.
+      operationId: MehrIpg_ExpirePayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestBase'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestBase'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestBase'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestBase'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentRequestBase'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GatewayResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GatewayResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/GatewayResult'
+  /api/v1/ipg/report/TransactionsReport:
+    post:
+      tags:
+      - اطلاعات و صورت مالی سالانه
+      summary: گزارش تراکنش‌ها - TransactionsReport
+      description: بمنظور گزارش‌گیری از پرداخت ها می‌توانید از این سرویس استفاده نمایید.
+      operationId: ReportIpg_TransactionsReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentReportRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PaymentReportRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentReportRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentReportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentReportRequest'
+        required: true
+      responses:
+        200:
+          description: درخواست با موفقیت پردازش شد
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log_TransactionReportViewModel'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log_TransactionReportViewModel'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log_TransactionReportViewModel'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log_TransactionReportViewModel'
+  /api/v1/ipg/report/TransactionDetails:
+    post:
+      tags:
+      - اطلاعات و صورت مالی سالانه
+      summary: نمایش جزئیات تراکنش - TransactionDetails
+      description: با استفاده از این سرویس می توانید درخواست مشاهده جزئیات تراکنش
+        را بدهید.
+      operationId: ReportIpg_TransactionDetails
+      requestBody:
+        description: پارامترهای ارسالی
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentWithAmountRequest'
+        required: true
+      responses:
+        200:
+          description: درخواست با موفقیت پردازش شد
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log_TransactionReportViewModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Log_TransactionReportViewModel'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Log_TransactionReportViewModel'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Log_TransactionReportViewModel'
+  /statements:
+    description: ""
+    get:
+      tags:
+      - اطلاعات‌پایه
+      summary: لیست اطلاعیه های منتشر شده
+      description: 'این سرویس لیست اطلاعیه های منتشر شده در کدال را بر اساس تاریخ
+        انتشار را بر می گرداند ، پس از دریافت لیست اطلاعیه ها با استفاده از فیلد ContentUri
+        می توانید محتوای اطلاعیه را دریافت نمایید '
+      operationId: GetStatementsList
+      parameters:
+      - name: year
+        in: query
+        description: سال انتشار
+        required: true
+        schema:
+          type: integer
+      - name: month
+        in: query
+        description: ماه انتشار
+        required: true
+        schema:
+          type: integer
+      - name: day
+        in: query
+        description: روز انتشار
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: 'خروجی وب سرویس '
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatementsResult'
+              examples:
+                results:
+                  summary: نمونه خروجی سرویس
+                  description: نمونه خروجی سرویس
+                  value: |-
+                    [
+                        [
+                            {
+                                "symbol": "some text",
+                                "letterSymbol": "some text",
+                                "tracingNumber": "some text",
+                                "parentTracingNo": 70,
+                                "title": "some text",
+                                "sentDateTime": "2018-01-17",
+                                "publishDateTime": "2018-01-17",
+                                "reportingType": 3,
+                                "letterName": "some text",
+                                "letterType": 60,
+                                "letterKind": 92,
+                                "isAudited": true,
+                                "isConsolidated": true,
+                                "period": 73,
+                                "periodExtraDay": 82,
+                                "periodEndToDate": "2018-01-17",
+                                "yearEndToDate": "some text",
+                                "hasAttachment": true,
+                                "companyType": 69,
+                                "companyName": "some text",
+                                "companyState": 77,
+                                "htmlUrl": "some text",
+                                "pdfUrl": "some text"
+                            },
+                            {
+                                "symbol": "some text",
+                                "letterSymbol": "some text",
+                                "tracingNumber": "some text",
+                                "parentTracingNo": 6,
+                                "title": "some text",
+                                "sentDateTime": "2018-01-17",
+                                "publishDateTime": "2018-01-17",
+                                "reportingType": 43,
+                                "letterName": "some text",
+                                "letterType": 42,
+                                "letterKind": 17,
+                                "isAudited": true,
+                                "isConsolidated": true,
+                                "period": 27,
+                                "periodExtraDay": 19,
+                                "periodEndToDate": "2018-01-17",
+                                "yearEndToDate": "some text",
+                                "hasAttachment": true,
+                                "companyType": 54,
+                                "companyName": "some text",
+                                "companyState": 85,
+                                "htmlUrl": "some text",
+                                "pdfUrl": "some text"
+                            }
+                        ],
+                        [
+                            {
+                                "symbol": "some text",
+                                "letterSymbol": "some text",
+                                "tracingNumber": "some text",
+                                "parentTracingNo": 12,
+                                "title": "some text",
+                                "sentDateTime": "2018-01-17",
+                                "publishDateTime": "2018-01-17",
+                                "reportingType": 62,
+                                "letterName": "some text",
+                                "letterType": 3,
+                                "letterKind": 90,
+                                "isAudited": true,
+                                "isConsolidated": true,
+                                "period": 7,
+                                "periodExtraDay": 92,
+                                "periodEndToDate": "2018-01-17",
+                                "yearEndToDate": "some text",
+                                "hasAttachment": true,
+                                "companyType": 26,
+                                "companyName": "some text",
+                                "companyState": 63,
+                                "htmlUrl": "some text",
+                                "pdfUrl": "some text"
+                            },
+                            {
+                                "symbol": "some text",
+                                "letterSymbol": "some text",
+                                "tracingNumber": "some text",
+                                "parentTracingNo": 68,
+                                "title": "some text",
+                                "sentDateTime": "2018-01-17",
+                                "publishDateTime": "2018-01-17",
+                                "reportingType": 12,
+                                "letterName": "some text",
+                                "letterType": 57,
+                                "letterKind": 20,
+                                "isAudited": true,
+                                "isConsolidated": true,
+                                "period": 46,
+                                "periodExtraDay": 84,
+                                "periodEndToDate": "2018-01-17",
+                                "yearEndToDate": "some text",
+                                "hasAttachment": true,
+                                "companyType": 41,
+                                "companyName": "some text",
+                                "companyState": 48,
+                                "htmlUrl": "some text",
+                                "pdfUrl": "some text"
+                            }
+                        ]
+                    ]
+components:
+  schemas:
+    CreatePaymentRequest:
+      required:
+      - MerchantId
+      - Amount
+      - PayType
+      - Description
+      - ResNumber
+      - CallbackUrl
+      type: object
+      properties:
+        MerchantId:
+          description: شناسه پذیرنده
+          type: string
+        Amount:
+          format: int64
+          description: مبلغ (ریال)
+          type: integer
+        PayType:
+          format: int32
+          description: نوع پرداخت 0=به انتخاب خریدار 2=اعتباری 4=شتابی
+          type: integer
+        Description:
+          description: توضیحات پرداخت که در صفحه پیش‌نمایش پرداخت نمایش داده می شود
+          type: string
+        ResNumber:
+          description: شماره سفارش (نباید تکراری باشد)
+          type: string
+        CallbackUrl:
+          description: آدرس صفحه بازگشت خریدار، پس از انجام عمل پرداخت، باید به صورت
+            Base64 ارسال شود
+          type: string
+        Email:
+          description: ایمیل خریدار، باید به صورت Base64 ارسال شود
+          type: string
+        Mobile:
+          description: شماره تماس خریدار
+          type: string
+    GatewayResult:
+      type: object
+      properties:
+        ResultCode:
+          format: int32
+          type: integer
+          readOnly: true
+        InvoiceNumber:
+          type: string
+    PaymentWithAmountRequest:
+      required:
+      - Amount
+      - MerchantId
+      - InvoiceNumber
+      type: object
+      properties:
+        Amount:
+          format: int64
+          description: مبلغ (ریال)
+          type: integer
+        MerchantId:
+          description: شناسه پذیرنده
+          type: string
+        InvoiceNumber:
+          format: double
+          description: شناسه اختصاصی خرید
+          type: number
+    GatewayVerifyResult:
+      type: object
+      properties:
+        RefNo:
+          type: string
+        ResultCode:
+          format: int32
+          type: integer
+          readOnly: true
+        InvoiceNumber:
+          type: string
+    PaymentRequestBase:
+      required:
+      - MerchantId
+      - InvoiceNumber
+      type: object
+      properties:
+        MerchantId:
+          description: شناسه پذیرنده
+          type: string
+        InvoiceNumber:
+          format: double
+          description: شناسه اختصاصی خرید
+          type: number
+    PaymentReportRequest:
+      required:
+      - MerchantId
+      - FromDate
+      - ToDate
+      - Type
+      type: object
+      properties:
+        MerchantId:
+          description: شناسه پذیرنده
+          type: string
+        Filter:
+          description: اعمال فیلتر بر روی کد سفارش، کد پیگیری پرداخت، توضیحات سفارش
+          type: array
+          items:
+            type: string
+        FromDate:
+          format: date-time
+          description: تاریخ شروع گزارش
+          type: string
+        ToDate:
+          format: date-time
+          description: تاریخ پایان گزارش
+          type: string
+        Type:
+          format: int32
+          description: نوع پرداخت 0=همه 2=اعتباری 4=شتابی
+          type: integer
+        Skip:
+          format: int32
+          description: نقطه شروع گزارش
+          type: integer
+        Limit:
+          format: int32
+          description: تعداد گزارش
+          type: integer
+    Log_TransactionReportViewModel:
+      type: object
+      properties:
+        InvoiceNumber:
+          format: double
+          type: number
+        ResNumber:
+          type: string
+        Amount:
+          format: int64
+          type: integer
+        PayType:
+          format: int32
+          type: integer
+        Status:
+          format: int32
+          type: integer
+        ReqDate:
+          format: date-time
+          type: string
+        LastStatusDate:
+          format: date-time
+          type: string
+        Email:
+          type: string
+        Mobile:
+          type: string
+        Description:
+          type: string
+        Pan:
+          type: string
+        RefNo:
+          type: string
+    StatementsResult:
+      title: Root Type for StatementsResult
+      description: The root of the StatementsResult type's schema.
+      type: array
+      items:
+        type: object
+        properties:
+          symbol:
+            type: string
+          letterSymbol:
+            type: string
+          tracingNumber:
+            type: string
+          parentTracingNo:
+            format: int32
+            type: integer
+          title:
+            type: string
+          sentDateTime:
+            format: date
+            type: string
+          publishDateTime:
+            format: date
+            type: string
+          reportingType:
+            format: int32
+            type: integer
+          letterName:
+            type: string
+          letterType:
+            format: int32
+            type: integer
+          letterKind:
+            format: int32
+            type: integer
+          isAudited:
+            type: boolean
+          isConsolidated:
+            type: boolean
+          period:
+            format: int32
+            type: integer
+          periodExtraDay:
+            format: int32
+            type: integer
+          periodEndToDate:
+            format: date
+            type: string
+          yearEndToDate:
+            type: string
+          hasAttachment:
+            type: boolean
+          companyType:
+            format: int32
+            type: integer
+          companyName:
+            type: string
+          companyState:
+            format: int32
+            type: integer
+          htmlUrl:
+            type: string
+          pdfUrl:
+            type: string
+      properties:
+        test:
+          description: test
+          type: string
+      example: |-
+        [
+            {
+                "symbol": "rbc",
+                "letterSymbol": "letterSym",
+                "tracingNumber": "00112233",
+                "parentTracingNo": 123456,
+                "title": "New Statement",
+                "sentDateTime": "1399/09/09",
+                "publishDateTime": "1399/09/09",
+                "reportingType": 1000000,
+                "letterName": "NAME",
+                "letterType": 1,
+                "letterKind": 2,
+                "isAudited": false,
+                "isConsolidated": false,
+                "period": 1,
+                "periodExtraDay": 20,
+                "periodEndToDate": "1399/09/09",
+                "yearEndToDate": "1399",
+                "hasAttachment": false,
+                "companyType": 1,
+                "companyName": "CoName",
+                "companyState": 1,
+                "htmlUrl": "http://url",
+                "pdfUrl": "http://url"
+            }
+        ]
+  securitySchemes:
+    JwtToken:
+      type: apiKey
+      name: token
+      in: header
+tags:
+- name: اطلاعات‌پایه
+  description: تمامی متدهای مربوط به دریافت اطلاعات پایه از سامانه کدال از قبیل، اطلاعیه
+    های منتشر شده، ناشران،مشاوران عرصه و... در این قسمت قراردارد
+- name: اطلاعات و صورت مالی سالانه
+  description: اطلاعات و صورت مالی سالانهاطلاعات و صورت مالی سالانهاطلاعات و صورت
+    مالی سالانه
